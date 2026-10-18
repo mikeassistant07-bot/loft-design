@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loft Design — Industrial Pipe Table Configurator</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🔧</text></svg>" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="logo">▤</span>
+      <div>
+        <h1>LOFT<span>//</span>DESIGN</h1>
+        <p>Industrial pipe table configurator — standard parts only</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="units-toggle" id="units-toggle">
+        <button data-u="cm" class="active">cm</button>
+        <button data-u="in">inches</button>
+      </div>
+      <button id="btn-plan" class="btn primary">▦ CAD plan</button>
+      <button id="btn-download" class="btn primary">⬇ Parts list</button>
+      <button id="btn-copy" class="btn">Copy</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ LEFT: CONFIGURATION ============ -->
+    <aside id="panel">
+      <section>
+        <h2>Presets</h2>
+        <div class="chips" id="presets"></div>
+      </section>
+
+      <section>
+        <h2>Dimensions</h2>
+        <div class="slider-row">
+          <label>Length <output id="out-L"></output></label>
+          <input type="range" id="in-L" min="50" max="250" step="1" />
+        </div>
+        <div class="slider-row">
+          <label>Depth (width) <output id="out-D"></output></label>
+          <input type="range" id="in-D" min="25" max="100" step="0.5" />
+        </div>
+        <div class="slider-row">
+          <label>Height <output id="out-H"></output></label>
+          <input type="range" id="in-H" min="35" max="110" step="0.5" />
+        </div>
+        <div class="slider-row">
+          <label>Leg inset from edge <output id="out-li"></output></label>
+          <input type="range" id="in-li" min="3" max="25" step="0.5" />
+        </div>
+        <p class="hint">Height snaps to off-the-shelf pipe lengths — the realized height is shown in the parts list.</p>
+      </section>
+
+      <section>
+        <h2>Frame</h2>
+        <div class="seg" id="pipe-size">
+          <button data-v="1/2">1/2″</button>
+          <button data-v="3/4">3/4″</button>
+          <button data-v="1">1″</button>
+        </div>
+        <div class="seg" id="finish">
+          <button data-v="black">Black iron</button>
+          <button data-v="galv">Galvanized</button>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="in-allowcut" />
+          <span>Allow cut &amp; threaded custom lengths</span>
+        </label>
+      </section>
+
+      <section>
+        <h2>Table top</h2>
+        <div class="tops" id="tops"></div>
+      </section>
+
+      <section>
+        <h2>Accessories</h2>
+        <label class="check"><input type="checkbox" id="acc-casters" /><span>Casters with brake <i>(replaces feet caps)</i></span></label>
+        <label class="check"><input type="checkbox" id="acc-hangrail" /><span>Hang rail under the top <i>(+2 flanges, +2 tees)</i></span></label>
+        <label class="check"><input type="checkbox" id="acc-shelf" /><span>Lower storage shelf <i>(+4 tees, +2 rails)</i></span></label>
+        <div class="slider-row" id="shelf-y-row" style="display:none">
+          <label>Shelf height <output id="out-sy"></output></label>
+          <input type="range" id="in-sy" min="0.1" max="0.55" step="0.01" />
+        </div>
+      </section>
+
+      <section>
+        <h2>View</h2>
+        <label class="check"><input type="checkbox" id="in-rotate" checked /><span>Slow turntable</span></label>
+      </section>
+
+      <footer>
+        <p>Frame reproduces the <a href="https://temptingthyme.com/2015/02/11/diy-industrial-pipe-table/" target="_blank" rel="noopener">temptingthyme.com</a> DIY pipe table: 7 tees · 5 flanges · 4 caps · 2 long rails.</p>
+      </footer>
+    </aside>
+
+    <!-- ============ CENTER: 3D ============ -->
+    <section id="viewport">
+      <canvas id="c"></canvas>
+      <div id="dim-badge"></div>
+    </section>
+
+    <!-- ============ RIGHT: PARTS LIST ============ -->
+    <aside id="bom">
+      <h2>Realized dimensions</h2>
+      <div id="dims-summary"></div>
+      <h2>Shopping list</h2>
+      <div id="bom-warnings"></div>
+      <div id="bom-list"></div>
+    </aside>
+  </main>
+
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js" } }
+  </script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
